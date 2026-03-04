@@ -5,13 +5,21 @@ export const metadata = {
   title: "Men's Sneakers | SneakPeak",
 }
 
+export const dynamic = "force-dynamic"
+
 export default async function MenPage() {
-  const products = await prisma.product.findMany({
-    where: {
-      OR: [{ gender: "MEN" }, { gender: "UNISEX" }],
-    },
-    orderBy: { createdAt: "desc" },
-  })
+  let products = []
+
+  try {
+    products = await prisma.product.findMany({
+      where: {
+        OR: [{ gender: "MEN" }, { gender: "UNISEX" }],
+      },
+      orderBy: { createdAt: "desc" },
+    })
+  } catch (error) {
+    console.error("Failed to load men products", error)
+  }
 
   return (
     <main className="py-16 lg:py-24">

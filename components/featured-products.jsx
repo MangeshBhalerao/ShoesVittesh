@@ -2,13 +2,19 @@ import { prisma } from "@/lib/prisma"
 import ProductsGrid from "@/components/products-grid"
 
 export default async function FeaturedProducts() {
-  const products = await prisma.product.findMany({
-    where: {
-      isFeatured: true,
-    },
-    orderBy: { createdAt: "desc" },
-    take: 8,
-  })
+  let products = []
+
+  try {
+    products = await prisma.product.findMany({
+      where: {
+        isFeatured: true,
+      },
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    })
+  } catch (error) {
+    console.error("Failed to load featured products", error)
+  }
 
   return (
     <section className="py-16 lg:py-24 bg-muted/30">
