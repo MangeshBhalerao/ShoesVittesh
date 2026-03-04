@@ -17,11 +17,11 @@ export default function Hero() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-lg px-8">
-                Shop Now
+              <Button size="lg" className="text-lg px-8" asChild>
+                <a href="/men">Shop Now</a>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                View Collection
+              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent" asChild>
+                <a href="/women">View Collection</a>
               </Button>
             </div>
           </div>
@@ -35,12 +35,12 @@ export default function Hero() {
               />
             </div>
             {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-semibold">
+            <a href="/men" className="absolute -top-4 -right-4 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
               New Drop
-            </div>
-            <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold">
+            </a>
+            <a href="/women" className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
               Limited Edition
-            </div>
+            </a>
           </div>
         </div>
       </div>

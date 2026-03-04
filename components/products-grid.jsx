@@ -9,8 +9,22 @@ import { Heart, Star, ShoppingCart } from "lucide-react"
 
 export default function ProductsGrid({ products }) {
   const [cartCount, setCartCount] = useState(0)
+  const [wishlist, setWishlist] = useState([])
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
+
+  const toggleWishlist = (productId) => {
+    setWishlist((prev) => {
+      const isWishlisted = prev.includes(productId)
+      if (isWishlisted) {
+        toast.info("Removed from wishlist")
+        return prev.filter((id) => id !== productId)
+      } else {
+        toast.success("Added to wishlist")
+        return [...prev, productId]
+      }
+    })
+  }
 
   useEffect(() => {
     // fetch current cart to show approximate count
@@ -92,9 +106,16 @@ export default function ProductsGrid({ products }) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-3 right-3 bg-background/80 hover:bg-background"
+                  className={`absolute top-3 right-3 bg-background/80 hover:bg-background transition-colors ${
+                    wishlist.includes(product.id) ? "text-red-500" : ""
+                  }`}
+                  onClick={() => toggleWishlist(product.id)}
                 >
-                  <Heart className="h-4 w-4" />
+                  <Heart
+                    className={`h-4 w-4 transition-all ${
+                      wishlist.includes(product.id) ? "fill-red-500 text-red-500 scale-110" : ""
+                    }`}
+                  />
                 </Button>
 
                 <div className="absolute top-3 left-3 flex flex-col gap-2">
